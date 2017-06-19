@@ -10,13 +10,24 @@
 name = raw_input("Enter your name: ")
 age = int(raw_input("Enter your age: "))
 birthday = raw_input("Has your birthday happened this year? Enter Y or N: ")
+print "the birthday variable = ", birthday
 
-if birthday == "Y":
-    # Calculates the year that the user will be 100
-    year_100 = str((100 - age) + 2017)
 
+if birthday== "Y" or "y":
+    year=2017
+    print "already had a birthday, year = ", year
+    while year<((2017-age)+101):
+        print year
+        year=year+1
+elif birthday== "n" or "N":
+    print "No birthday yet, first year =", year
+    year=2016
+    print "No birthday yet, second year =", year
+    while year<((2016-age)+100):
+        print year
+        year=year+1
 else:
-    # Calculates the year that the user will be 100
-    year_100 = str((100 - age) + 2016)
+    print "try again"
 
-print name, " will turn 100 in the year ", year_100, "."
+print name, " will turn 100 in the year ", year-1, "."
+print (2016-23)+100
