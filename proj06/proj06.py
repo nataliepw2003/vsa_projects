@@ -45,40 +45,60 @@ def choose_word(wordlist):
 # in the program
 wordlist = load_words()
 
-# your code begins here!
-def hangman():
+# your code begins here
+
+new_list=[]
+def intersection (listc,word):
     winfactor=0
+    newlength=len(listc)
+    for item in word:
+        new_list.append(item)
+        newlength=newlength-1
+        #if newlength==0:
+
+
+def hangman():
+    indexnum=0
+    counter=0
     listc=[]
     wronglist=[]
     alphalist= ["a","b","c", "d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     print "Welcome to hangman"
     #word=choose_word(wordlist)
     word = list(choose_word(wordlist))
-    print word
+    #print word
+    print"--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
     num_guess=len(word)
     length=len(word)
     LIST = [len(word) * "_ "]  #####
     print "The word is", length,"letters long. You have", length, "guesses."
-    # for x in range(0,int(length)):
-    #             listc.append("_ ")
+    for x in range(0,int(length)): #**********
+                 listc.append("_ ")
     while num_guess!=0:
-                print ""
                 guess = raw_input("Guess a letter: ")
                 print ""
                 if guess in alphalist:
                     if guess in word:
                         print guess,"is in this word."
-                        listc.append(guess)
-
+                        #listc.append(guess)
+                        #print listc
+                        if listc == word:
+                            print "correct letters=", listc
+                            print "wrong letters=", wronglist
+                            intersection(listc, word)
                        #WHERE THE LETTER IS LOCATED, CODE  (INC)
-                        # if guess==word[0]:
-                        #     print ""
-                        #     print guess,"is the first letter."
-                        #     print ""
-                        # if guess==word[int(length)-1]:
-                        #     print ""
-                        #     print guess,"is the last letter."
-                        #     print ""
+                        for num in range(0,len(word)):
+                            indexnum=num
+                            #print indexnum
+                            # If statement isnt working
+                            #print listc[indexnum]
+                            #print word[indexnum]
+                            if guess == word[indexnum]:
+                                    listc[indexnum]=guess
+                        #print "listc =",listc
+
+
+
 
                     elif guess in listc:
                         print "You already guessed this. Please guess again."
@@ -90,7 +110,7 @@ def hangman():
                         num_guess=num_guess-1
                 else:
                     print "Your guess was either capitalized, more than one letter, or it is not in the alphabet. Guess again."
-                    print ""
+
                 if num_guess==0:
                     print ""
                     print "YOU RAN OUT OF GUESSES"
@@ -99,34 +119,27 @@ def hangman():
                     print ""
                     print"--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
                     break
-                print "wrong letters=", wronglist
-                print""
                 print "correct letters=", listc
-                print ""
+                print "wrong letters=", wronglist
                 print "You have", num_guess, "guesses left."
+                print"--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
                 if listc==word:
-                    print"  Y"
-                    print"      O"
-                    print"          U"
-                    print"  W"
-                    print"      O"
-                    print"          N"
+                    print"--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+                    print"  Y                   "
+                    print"      O                   "
+                    print"          U                   "
+                    print"  W                   "
+                    print"      O                   "
+                    print"          N                   "
                     print"--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
                     break
-
-
 hangman()
-#
-# print word  #
-# if guess in word:  #
-#     if guess == word[0]:  #
-#         LIST = [guess] + ((length - 1) * "_ ")  #
-#         print LIST  #
-#     else:  #
-#         print LIST  #
-# playagain= raw_input("Want to play again?(y or n)")
-#
-# if playagain==y:
-#     hangman()
-# else:
-#     break
+
+
+#for guess in word:
+                           #counter=counter+1
+                            #if counter>2 or counter==2:
+                                #print guess,"is in the word multiple times."
+                                #listc.append(guess)
+                                #print listc
+                            #counter=0
