@@ -75,20 +75,21 @@ def get_word_score(word, n):
         score=score+50
     return score
 
-    """
-    Returns the score for a word. Assumes the word is a
-    valid word.
 
-	The score for a word is the sum of the points for letters
-	in the word multiplied by the length of the word, plus 50
-	points if all n letters are used on the first go.
-
-	Letters are scored as in Scrabble; A is worth 1, B is
-	worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
-
-    word: string (lowercase letters)
-    returns: int >= 0
-    """
+# """
+#             # Returns the score for a word. Assumes the word is a
+#             # valid word.
+#             #
+#             # The score for a word is the sum of the points for letters
+#             # in the word multiplied by the length of the word, plus 50
+#             # points if all n letters are used on the first go.
+#             #
+#             # Letters are scored as in Scrabble; A is worth 1, B is
+#             # worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
+#             #
+#             # word: string (lowercase letters)
+#             # returns: int >= 0
+#"""
     # TO DO...
     
 #
@@ -143,37 +144,79 @@ def deal_hand(n):
 # Problem #2: Update a hand by removing letters
 #
 def update_hand(hand, word):
-    """
-    Assumes that 'hand' has all the letters in word.
-	In other words, this assumes that however many times
-	a letter appears in 'word', 'hand' has at least as
-	many of that letter in it. 
+    answer_list=[]
+    for letter in word:
+        answer_list.append(letter)
+    hand_copy = hand.copy()
+    print hand_copy
+    for letter in answer_list:
+        if letter in hand_copy:
+            hand_copy [letter] = hand_copy[letter] - 1
+    return hand_copy
 
-    Updates the hand: uses up the letters in the given word
-    and returns the new hand, without those letters in it.
-
-    Has no side effects: does not modify hand.
-
-    word: string
-    hand: dictionary (string -> int)    
-    returns: dictionary (string -> int)
-    """
+    # """
+    # Assumes that 'hand' has all the letters in word.
+    # In other words, this assumes that however many times
+    # a letter appears in 'word', 'hand' has at least as
+    # many of that letter in it.
+    #
+    # Updates the hand: uses up the letters in the given word
+    # and returns the new hand, without those letters in it.
+    #
+    # Has no side effects: does not modify hand.
+    #
+    # word: string
+    # hand: dictionary (string -> int)
+    # returns: dictionary (string -> int)
+    # """
     # TO DO ...
 
 #
 # Problem #3: Test word validity
 #
 def is_valid_word(word, hand, word_list):
-    """
-    Returns True if word is in the word_list and is entirely
-    composed of letters in the hand. Otherwise, returns False.
-    Does not mutate hand or word_list.
-    
-    word: string
-    hand: dictionary (string -> int)
-    word_list: list of lowercase strings
-    """
-    # TO DO...
+    print word
+    answer_list=[]
+    hand_copy=hand.copy()
+    for letter in word:
+        answer_list.append(letter)
+    if word in word_list:
+        if hand_copy.get(letter, 0) == 0:
+            print "rattt"
+            print False
+            return False
+        for letter in answer_list:
+            if hand_copy.get(letter,0)==0:
+                print "supercalifragilisticexpialidocious"
+                print False
+                return False
+            else:
+                if letter in hand_copy:
+                    0hand_copy[letter] = hand_copy[letter] - 1
+                    print True
+                    return True
+                else:
+                    print "stu pid"
+                    print False
+                    return False
+    else:
+        print "popopopopop"
+        print False
+        return False
+
+    # """
+    # Returns True if word is in the word_list and is entirely
+    # composed of letters in the hand. Otherwise, returns False.
+    # Does not mutate hand or word_list.
+    #
+    # word: string
+    # hand: dictionary (string -> int)
+    # word_list: list of lowercase strings
+    # """
+    # # TO DO...
+
+
+
 
 def calculate_handlen(hand):
     handlen = 0
@@ -228,6 +271,7 @@ def play_game(word_list):
       When done playing the hand, ask the 'n' or 'e' question again.
 
     * If the user inputs 'r', let the user play the last hand again.
+
 
     * If the user inputs 'e', exit the game.
 
