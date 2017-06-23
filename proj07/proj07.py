@@ -62,6 +62,19 @@ def get_frequency_dict(sequence):
 # Problem #1: Scoring a word
 #
 def get_word_score(word, n):
+    index=0
+    score=0
+    answer_list=[]
+    for item in word:
+        answer_list.append(item)
+    while index<len(word):
+        score=score+SCRABBLE_LETTER_VALUES[answer_list[index]]
+        index=index+1
+    score=score*len(word)
+    if len(word)==n:
+        score=score+50
+    return score
+
     """
     Returns the score for a word. Assumes the word is a
     valid word.
