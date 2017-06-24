@@ -160,7 +160,7 @@ def test_is_valid_word(word_list):
     word = "honey"
 
 
-     if  is_valid_word(word, hand, word_list):
+    if is_valid_word(word, hand, word_list):
         print "FAILURE: test_is_valid_word()"
         print "\tExpected False, but got True for word: '" + word + "' and hand:", hand
         
