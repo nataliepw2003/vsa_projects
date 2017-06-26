@@ -1,4 +1,74 @@
-# Name:
+# # # defining a class called Person, which is a type of object
+# # class Person(object):
+# #     # defining the init method for the class person with a name
+# #     def __init__(self, name, age):
+# #         self.name = name
+# #         self.age = age
+# #
+# #     def setAge(self, age):
+# #         self.age = int(age)
+# #
+# #     def __str__(self):
+# #         ans = self.name + " is age "+ str(self.age)
+# #         # return a string
+# #         return ans
+# #
+# #     def getAge(self):
+# #         return self.age
+# #
+# # person1 = Person("Ashlyn", 26)
+# # person1.setAge(27)
+# # print str(person1)
+# #
+# # class VSAstudent(Person):
+# #     def set_class(self, class_name):
+# #         self.class_name = class_name
+# #     def get_class(self, class_name):
+# #         return self.class_name
+# #     def compareAge(self, otherStudent):
+# #         if self.age > otherStudent.age:
+# #             return self.name + "is older than " + otherStudent.name
+# #         else:
+# #             return self.name + "is younger than " + otherStudent.name
+# #
+# # person2 = VSAstudent('Santosh', 15)
+# # person2.set_class('programming')
+# #
+# # print person2
+# # print person2.class_name
+# #
+# # person3 = VSAstudent('Damian', 13)
+# #
+# # print person2.compareAge(person3)
+#
+#
+#
+# class Shape(object):
+#     def __init__(self,side):
+#         self.side=side
+#
+# class square(Shape):
+#     def findArea(self,side):
+#         area=self.side *self.side
+#         return area
+#
+#
+# class triangle(Shape):
+#     def __str__(self,height):
+#         self.height=height
+#     def findArea(self,base,height):
+#         area=(base*height)*.5
+#         return area
+#
+# s=square(9)
+# print s.findArea(s)
+#
+# t=triangle(1)
+# height=4
+# base=10
+# print t.findArea(base,height)
+
+# Name: Natalie Wright and Arianna Banta
 # Date
 
 import feedparser
@@ -46,6 +116,16 @@ def process(url):
 # Problem 1
 
 # TODO: NewsStory
+class NewsStory(object):
+    def __init__(self,guid,subject,summary,title,link):
+        self.guid=guid
+        self.subject=subject
+        self.summary=summary
+        self.title=title
+        self.link=link
+    def set
+
+
 
 #======================
 # Part 2
