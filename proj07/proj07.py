@@ -8,7 +8,7 @@ import string
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
-HAND_SIZE =int(raw_input("how many letters do you want?@?!?1? "))
+HAND_SIZE =int(raw_input("How many letters do you want in your hand? "))
 
 SCRABBLE_LETTER_VALUES = {
     'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k':
@@ -29,14 +29,14 @@ def load_words():
     Depending on the size of the word list, this function may
     take a while to finish.
     """
-    print "Loading word list from file..."
+    #print "Loading word list from file..."
     # inFile: file
     inFile = open(WORDLIST_FILENAME, 'r', 0)
     # wordlist: list of strings
     wordlist = []
     for line in inFile:
         wordlist.append(line.strip().lower())
-    print "  ", len(wordlist), "words loaded."
+    #print "  ", len(wordlist), "words loaded."
     return wordlist
 
 def get_frequency_dict(sequence):
@@ -145,13 +145,15 @@ def deal_hand(n):
 #
 def update_hand(hand, word):
     answer_list=[]
+    #handlen=calculate_handlen(hand)
     for letter in word:
         answer_list.append(letter)
     hand_copy = hand.copy()
-    print hand_copy
+    #print hand_copy
     for letter in answer_list:
         if letter in hand_copy:
-            hand_copy [letter] = hand_copy[letter] - 1
+            hand_copy[letter] = hand_copy[letter] - 1
+            #handlen=handlen-1
     return hand_copy
 
     # """
@@ -232,8 +234,8 @@ def play_hand(hand, word_list):
     all_score=0
     firsthand=hand.copy
     display_hand(hand)
-    handlen=calculate_handlen(hand)
-    word = raw_input("Type a word(if finished type .): ")
+    #handlen=
+    word = raw_input("Type a word. If you are finished or out of letters, please type a period (.): ")
     answer_list = []
     for letter in word:
         answer_list.append(letter)
@@ -241,10 +243,10 @@ def play_hand(hand, word_list):
     #     print all_score
     # elif handlen==0:
     #     print all_score
-    if word!= "." and hand!=0:
-        while word!="." and handlen>0:
+    if word!= ".":# and handlen!=0:
+        while word!="." and calculate_handlen(hand)>0:
             if is_valid_word(word, hand, word_list)== False:
-                print "That is an invalid word"
+                print "That is an invalid word."
                 word= raw_input("Please choose another word: ")
             else:
                 print get_word_score(word, HAND_SIZE)
@@ -252,13 +254,26 @@ def play_hand(hand, word_list):
                 print all_score
                 hand=update_hand(hand,word)
                 display_hand(hand)
-                word=raw_input("another word: ")
-    if word==".":
-        print "your final score was",all_score
-    if hand==0:
-        print "your final score was",all_score
-hand=deal_hand(HAND_SIZE)
-word_list=load_words()
+                word=raw_input("Please choose another word: ")
+    else:
+        print "score is", all_score
+    # if word==".":
+    #     print "Your final score was",all_score
+    #     variable = raw_input(
+    #         "Please type n,r, or e (n for a new hand, r for the same hand again, or e to exit the game): ")
+    #     if variable == "n":
+    #         newhand = deal_hand(HAND_SIZE)
+    #         # return
+    #         play_hand(newhand, word_list)
+    #     if variable == "r":
+    #         play_hand(hand, word_list)
+    #     elif variable == "e":
+    #         print "The end. :)"
+    #         quit()
+    #else:
+        #print "your final score was",all_score
+#hand=deal_hand(HAND_SIZE)
+#word_list=load_words()
 #play_hand(hand,word_list)
 
     # """
@@ -296,15 +311,28 @@ word_list=load_words()
 def play_game(word_list):
     # HAND_SIZE=raw_input("how many letters do you want?@?!?1? ")
     # print HAND_SIZE
+    hand=deal_hand(HAND_SIZE)
     play_hand(hand,word_list)
-    variable=raw_input("type n,r, or e (n for a new hand, r for the same hand again, or e to exit the game) ")
-    if variable == "n":
-        play_hand(hand, word_list)
-    if variable == "r":
-        print firsthand
+    variable=raw_input("Please type n,r, or e (n for a new hand, r for the same hand again, or e to exit the game): ")
+    while variable!="e":
+        if variable == "n":
+            hand=deal_hand(HAND_SIZE)
+            #return
+            play_hand(hand,word_list)
+            variable = raw_input(
+                "Please type n,r, or e (n for a new hand, r for the same hand again, or e to exit the game): ")
+
+        elif variable == "r":
+            play_hand(hand, word_list)
+            variable = raw_input(
+                "Please type n,r, or e (n for a new hand, r for the same hand again, or e to exit the game): ")
+        else:
+            print "Because you didn't type n,r, or e, you are quitting the game whether you like it or not.", quit()
     if variable == "e":
+        print "The end. :)"
         quit()
-play_game(word_list)
+
+#play_game(word_list)
 
     # """
     # Allow the user to play an arbitrary number of hands.
@@ -326,6 +354,8 @@ play_game(word_list)
 #
 # Build data structures used for entire session and play game
 #
+
 if __name__ == '__main__':
     word_list = load_words()
     play_game(word_list)
+

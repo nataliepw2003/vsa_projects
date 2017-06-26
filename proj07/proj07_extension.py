@@ -12,16 +12,26 @@ from perm import *
 #
 # Problem #6A: Computer chooses a word
 #
-#
-def comp_choose_word(hand, word_list):
-    """
-	Given a hand and a word_dict, find the word that gives the maximum value score, 
-	and return it. This word should be calculated by considering all possible 
-	permutations of lengths 1 to HAND_SIZE.
-
-    hand: dictionary (string -> int)
-    word_list: list (string)
-    """
+hand=deal_hand(HAND_SIZE)
+def comp_choose_word(hand, wordlist):
+    load_words()
+    computerlist= []
+    get_perms(hand,HAND_SIZE)
+    permslist=get_perms(hand, HAND_SIZE)
+    for letter in permslist:
+        if letter in wordlist:
+            computerlist.append[letter]
+            print computerlist
+load_words()
+print comp_choose_word(hand, wordlist)
+    # """
+    # Given a hand and a word_dict, find the word that gives the maximum value score,
+    # and return it. This word should be calculated by considering all possible
+    # permutations of lengths 1 to HAND_SIZE.
+    #
+    # hand: dictionary (string -> int)
+    # word_list: list (string)
+    # """
     # TO DO...
 
 #
