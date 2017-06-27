@@ -117,14 +117,27 @@ def process(url):
 
 # TODO: NewsStory
 class NewsStory(object):
-    def __init__(self,guid,subject,summary,title,link):
+    def __init__(self,guid,title,subject,summary,link):
         self.guid=guid
         self.subject=subject
         self.summary=summary
         self.title=title
         self.link=link
-    def set
 
+    def get_guid (self):
+        return self.guid
+
+    def get_subject (self):
+        return self.subject
+
+    def get_summary (self):
+        return self.summary
+
+    def get_title (self):
+        return self.title
+
+    def get_link (self):
+        return self.link
 
 
 #======================
@@ -140,15 +153,54 @@ class Trigger(object):
         """
         raise NotImplementedError
 
+
+    # def evaluate(self,guid):
+
+
+
 # Whole Word Triggers
 # Problems 2-5
+#TODO: WordTrigger #trigger
+class WordTrigger (Trigger):
+    def __init__(self,word):
+        self.word=word
+    def is_word_in (self,text):
+        self.word=self.word.lower()
+        text=text.lower()
+        #word.upper()
+        for item in string.punctuation:
+            text=text.replace(item," ")
+        text=text.split()
+        for word in text:
+            if word == self.word:
+                return True
+        return False
 
-# TODO: WordTrigger
 
-# TODO: TitleTrigger
+
+
+
+
+# TODO: TitleTrigger # wordtrigger
+
+class TitleTrigger (WordTrigger,Trigger):
+    def evaluate(self, story):
+        title=story.get_title()
+        return self.is_word_in(title)
+
 # TODO: SubjectTrigger
+
+class SubjectTrigger (WordTrigger,Trigger):
+    def evaluate(self, story):
+        subject=story.get_subject()
+        return self.is_word_in(subject)
+
 # TODO: SummaryTrigger
 
+class SummaryTrigger (WordTrigger,Trigger):
+    def evaluate(self, story):
+        summary=story.get_summary()
+        return self.is_word_in(summary)
 
 # Composite Triggers
 # Problems 6-8
