@@ -57,6 +57,9 @@ class RectangularRoom(object):
     particular time, each of these tiles is either clean or dirty.
     """
     def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
         """
         Initializes a rectangular room with the specified width and height.
 
@@ -65,8 +68,7 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        raise NotImplementedError
-    
+
     def cleanTileAtPosition(self, pos):
         """
         Mark the tile under the position POS as cleaned.
@@ -75,7 +77,9 @@ class RectangularRoom(object):
 
         pos: a Position
         """
-        raise NotImplementedError
+        tileList = []
+        for tile in pos:
+            tileList.append(tile)
 
     def isTileCleaned(self, m, n):
         """
@@ -87,9 +91,14 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
-        raise NotImplementedError
+        if tile in tileList:
+            return True
+        else:
+            return False
     
     def getNumTiles(self):
+        area = self.width * self.height
+        NumTiles = area
         """
         Return the total number of tiles in the room.
 
@@ -121,7 +130,6 @@ class RectangularRoom(object):
         returns: True if pos is in the room, False otherwise.
         """
         raise NotImplementedError
-
 
 class Robot(object):
     """
@@ -186,7 +194,6 @@ class Robot(object):
         """
         raise NotImplementedError
 
-
 # === Problem 2
 class StandardRobot(Robot):
     """
@@ -229,10 +236,10 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
 
 # === Problem 4
 #
-# 1) How long does it take to clean 80% of a 20�20 room with each of 1-10 robots?
+# 1) How long does it take to clean 80% of a 20x20 room with each of 1-10 robots?
 #
 # 2) How long does it take two robots to clean 80% of rooms with dimensions 
-#	 20�20, 25�16, 40�10, 50�8, 80�5, and 100�4?
+#	 20x20, 25x16, 40x10, 50x8, 80x5, and 100x4?
 
 def showPlot1():
     """
