@@ -206,14 +206,82 @@ class SummaryTrigger (WordTrigger,Trigger):
 # Problems 6-8
 
 # TODO: NotTrigger
+
+
+class NotTrigger (Trigger):
+    def __init__(self,other_trigger):
+        self.other_trigger=other_trigger
+
+    def evaluate (self, story):
+        other_trigger_answer=self.other_trigger.evaluate(story)
+        if other_trigger_answer==True:
+            return False
+        else:
+            return True
+
+
+
+    # NotTrigger = N
+    # def not(N):evaluate(self, story):
+    # return self.is_word_in(N)
+
+
+# N=story.get_summary()
+
+
 # TODO: AndTrigger
+class AndTrigger (Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+
+    def evaluate(self, story):
+        if self.trigger1.evaluate(story) and self.trigger2.evaluate(story):
+            return True
+        else:
+            return False
+
+
 # TODO: OrTrigger
 
+class OrTrigger (Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
 
-# Phrase Trigger
-# Question 9
+    def evaluate(self, story):
+        if self.trigger1.evaluate(story) or self.trigger2.evaluate(story):
+            return True
+        elif self.trigger1.evaluate(story) and self.trigger2.evaluate(story):
+            return True
+        else:
+            return False
+
+
+
+
 
 # TODO: PhraseTrigger
+
+class PhraseTrigger (Trigger):
+    def __init__(self, phrase_trigger):
+        self.phrase_trigger = phrase_trigger
+
+    def evaluate(self, story):
+
+        subject = story.get_subject()
+        title = story.get_title()
+        summary = story.get_summary()
+
+        if self.phrase_trigger in subject:
+            return True
+        elif self.phrase_trigger in title:
+            return True
+        elif self.phrase_trigger in summary:
+            return True
+        else:
+            return False
+
 
 
 #======================
@@ -222,14 +290,30 @@ class SummaryTrigger (WordTrigger,Trigger):
 #======================
 
 def filter_stories(stories, triggerlist):
+
+    storylist=[]
+
+    for story in stories:
+
+        for trigger in triggerlist:
+
+            if trigger.evaluate(story):
+                storylist.append(story)
+
+    return storylist
+
+
+
+
+
+
+
     """
     Takes in a list of NewsStory-s.
     Returns only those stories for whom
     a trigger in triggerlist fires.
     """
     # TODO: Problem 10
-    # This is a placeholder (we're just returning all the stories, with no filtering) 
-    # Feel free to change this line!
     return stories
 
 #======================
@@ -264,9 +348,9 @@ import thread
 def main_thread(p):
     # A sample trigger list - you'll replace
     # this with something more configurable in Problem 11
-    t1 = SubjectTrigger("Trump")
-    t2 = SummaryTrigger("Vanderbilt")
-    t3 = PhraseTrigger("Net Neutrality")
+    t1 = SubjectTrigger("Kittens")
+    t2 = SummaryTrigger("Kittens")
+    t3 = PhraseTrigger("Kittens")
     t4 = OrTrigger(t2, t3)
     triggerlist = [t1, t4]
     
