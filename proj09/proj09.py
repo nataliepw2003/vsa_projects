@@ -127,13 +127,11 @@ class RectangularRoom(object):
 
         returns: a Position object.
         """
-        self.width = 5
-        self.height = 5
-        self.x = random.randint(0, self.width)
-        self.y = random.randint(0, self.height)
-        Position = (self.x, self.y)
-        print "position equals",Position
-        return Position
+        x = random.randint(0, self.width)
+        y = random.randint(0, self.height)
+        position = Position(x, y)
+        print "position equals",position
+        return position
 
     def isPositionInRoom(self, pos):
         """
@@ -142,12 +140,11 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
-        for pos in self.tileList:
-            x = pos.getX()
-            y = pos.getY()
-            if x<=self.width and y<=self.height:
-                print"isPositionInRoom equals", True
-                return True
+        x = pos.getX()
+        y = pos.getY()
+        if 0<=x<self.width and 0<=y<self.height:
+            print"isPositionInRoom equals", True
+            return True
         return False
 
 
@@ -217,15 +214,7 @@ class Robot(object):
         #r#aise NotImplementedError
 
     def updatePositionAndClean(self):
-        cleanTileAtPosition
-        while tileList<area:
-            getNewPosition()
-            if isPositionInRoom==True:
-                position=setRobotPosition
-            if position in tileList:
-                position = setRobotPosition
-            else:
-                cleanTileAtPosition
+
         """
         Simulate the raise passage of a single time-step.
 
@@ -234,16 +223,7 @@ class Robot(object):
         """
         raise NotImplementedError
 
-room = RectangularRoom(5, 5)
-robot=Robot(room,3)
-print "cleanTileAtPosition equals",room.cleanTileAtPosition(Position(3, 4))
-print "isTileCleaned",room.isTileCleaned(3, 4)
-print "getNumTiles",room.getNumTiles()
-print "getNumCleaned", room.getNumCleanedTiles()
-print "getRandomPosition",room.getRandomPosition()
-print "isPositionInRoom", room.isPositionInRoom(room.getRandomPosition())
-print "getRobotPosition", robot.getRobotPosition()
-print "updatePositionAndClean", room.updatePositionAndCLean()
+
 # === Problem 2
 class StandardRobot(Robot):
     """
@@ -253,13 +233,42 @@ class StandardRobot(Robot):
     it hits a wall, it chooses a new direction randomly.
     """
     def updatePositionAndClean(self):
+        nowposition = self.getRobotPosition()
+        newposition = nowposition.getNewPosition(self.direction, self.speed)
+        if self.room.isPositionInRoom(newposition) == True:
+            self.setRobotPosition(newposition)
+        else:
+            while self.room.isPositionInRoom(newposition) == False:
+                #print self.direction
+                if self.direction >= 349:
+                    self.direction = self.direction - 300
+                else:
+                    self.direction = self.direction + 10
+                newposition = nowposition.getNewPosition(self.direction, self.speed)
+            self.setRobotPosition(newposition)
+        self.room.cleanTileAtPosition(nowposition)
         """
         Simulate the passage of a single time-step.
 
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+
+room = RectangularRoom(5, 5)
+print "This is the correct one", room.isPositionInRoom(Position(4, -3))
+robot = StandardRobot(room, 1)
+print "cleanTileAtPosition equals", room.cleanTileAtPosition(Position(3, 4))
+print "isTileCleaned", room.isTileCleaned(3, 4)
+print "getNumTiles", room.getNumTiles()
+print "getNumCleaned", room.getNumCleanedTiles()
+print "getRandomPosition", room.getRandomPosition()
+print "isPositionInRoom", room.isPositionInRoom(room.getRandomPosition())
+print "getRobotPosition", robot.getRobotPosition()
+for num in range(0, 10):
+    robot.updatePositionAndClean()
+    print robot.getRobotPosition().getX(), "separator", robot.getRobotPosition().getY()
+    #print robot.room.tileList
+
 
 # === Problem 3
 
